@@ -36,18 +36,13 @@ function renderCategoryTabs() {
 
 function renderWorks() {
   const s = seasons[activeSeason];
-  const cat = categories.find(c => c.key === activeCategory);
   const list = works[activeSeason].filter(w => w.type === activeCategory);
   const container = document.getElementById("works-list");
 
   document.getElementById("count-badge").textContent = list.length + " works";
-  document.getElementById("modal-title").style.color = s.text;
-  document.getElementById("modal-title").textContent = s.emoji + " " + cat.emoji + " " + s.label + "의 " + activeCategory;
-  document.getElementById("submit-btn").style.background = s.gradient;
-  document.getElementById("submit-btn").style.color = s.text;
   container.innerHTML = "";
 
-  if (list.length === 0 && !isAdmin) {
+  if (list.length === 0) {
     const empty = document.createElement("div");
     empty.className = "empty-state";
     empty.textContent = "아직 등록된 작품이 없어요";
@@ -68,10 +63,6 @@ function renderWorks() {
       : `<div class="poster-wrap"><span class="poster-placeholder">${posterEmoji}</span></div>`;
 
     card.innerHTML = `
-      ${isAdmin ? `<div class="card-actions">
-        <button class="edit-btn" onclick="openEditModal(${work.id})">✏️</button>
-        <button class="delete-btn-inline" onclick="deleteWork(${work.id})">✕</button>
-      </div>` : ""}
       <div style="display:flex; align-items:flex-start; gap:14px;">
         <div class="work-index" style="color:${s.accent};">${String(i + 1).padStart(2, "0")}</div>
         ${posterHTML}
@@ -89,14 +80,6 @@ function renderWorks() {
     `;
     container.appendChild(card);
   });
-
-  if (isAdmin) {
-    const addBtn = document.createElement("button");
-    addBtn.className = "add-btn";
-    addBtn.textContent = "+ " + activeCategory + " 추가하기";
-    addBtn.onclick = () => openAddModal();
-    container.appendChild(addBtn);
-  }
 }
 
 function render() {
