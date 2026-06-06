@@ -1,5 +1,5 @@
 // ✏️ 비밀번호 여기서 변경
-const ADMIN_PASSWORD = "sorogee";
+const ADMIN_PASSWORD = "todayismyday234";
 
 let isAdmin = false;
 let editingId = null;
